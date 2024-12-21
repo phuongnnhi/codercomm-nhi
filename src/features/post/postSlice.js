@@ -7,6 +7,7 @@ const initialState = {
     isLoading: false,
     error: null,
     postsById: {},
+    totalPosts: 0,
     currentPagePosts: [],
     isConfirming: false, // Tracks if the confirmation modal is visible
     postIdToDelete: null,
@@ -31,6 +32,7 @@ const slice = createSlice({
             if (state.currentPagePosts.length % POST_PER_PAGE === 0)
                 state.currentPagePosts.pop();
             state.postsById[newPost._id] = newPost;
+            state.totalPosts += 1;
             state.currentPagePosts.unshift(newPost._id)
         },
         getPostSuccess(state, action) {

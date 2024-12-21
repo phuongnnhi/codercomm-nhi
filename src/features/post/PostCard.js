@@ -47,8 +47,8 @@ function PostCard({post}) {
     setEditDialogOpen(true); // Open the edit dialog
   };
 
-  const handleEditSubmit = ({ content, image }) => {
-    dispatch(updatePost({ postId: post._id, content, image })); // Dispatch updatePost action
+  const handleEditSubmit = ({ postId, content, image }) => {
+    dispatch(updatePost({ postId, content, image })); // Dispatch updatePost action
   };
 
 
@@ -114,6 +114,7 @@ function PostCard({post}) {
         open={isEditDialogOpen}
         onClose={() => setEditDialogOpen(false)}
         onSubmit={handleEditSubmit}
+        postId = { post._id }
         initialContent={post.content}
         initialImage={post.image}
       />

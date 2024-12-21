@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -9,10 +9,16 @@ import {
 } from '@mui/material';
 import UploadSingleFile from './UploadSingleFile';
 
-function EditPostDialog({ open, onClose, onSubmit, initialContent, initialImage }) {
+function EditPostDialog({ open, onClose, onSubmit, postId, initialContent, initialImage }) {
   const [content, setContent] = useState(initialContent || '');
   const [file, setFile] = useState(initialImage || null);
 
+  useEffect(() => {
+    setContent(initialContent);
+    setFile(initialImage);
+  }, [initialContent, initialImage]);
+
+  
   const handleDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     if (file) {
@@ -21,7 +27,7 @@ function EditPostDialog({ open, onClose, onSubmit, initialContent, initialImage 
   };
 
   const handleSubmit = () => {
-    onSubmit({ content, image: file });
+    onSubmit({ postId, content, image: file });
     onClose();
   };
 
